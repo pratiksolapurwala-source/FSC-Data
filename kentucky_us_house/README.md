@@ -10,26 +10,27 @@ Columns: `county, precinct, office, district, party, candidate, votes`
   filtered to `office == "US HOUSE"`.
   https://github.com/MEDSL/2022-elections-official
 
-- `kentucky_2020_ushouse_general.csv` — **district-level** results only, 16 rows
-  (6 districts). `county` and `precinct` are blank: MEDSL's precinct-level 2020
-  returns were removed from GitHub (the `2020-elections-official` repo's
-  README now says "We are no longer maintaining 2020 precinct data in this
-  repository" and points to Harvard Dataverse instead), and Harvard Dataverse
-  could not be reached from this environment. OpenElections' Kentucky repo
-  has no 2020 folder at all (its year list jumps from 2019 to 2023). Source:
-  MEDSL "U.S. House 1976–2022" dataset, redistributed via the R4DS
-  TidyTuesday project:
-  https://github.com/rfordatascience/tidytuesday/blob/main/data/2023/2023-11-07/readme.md
-  (original: https://doi.org/10.7910/DVN/IG0UN2)
+- `kentucky_2020_ushouse_general.csv` — **county-level** results, 315 rows across
+  all 6 congressional districts. Source: Kentucky Secretary of State's official
+  "2020 General Election Results" report (Michael G. Adams, Secretary of State),
+  supplied by the user as a PDF since this environment could not reach
+  elect.ky.gov / sos.ky.gov directly. Each district's county-level vote counts
+  were cross-checked against that district's own certified state totals
+  (candidate votes must sum exactly to the certified statewide total) — all
+  6 districts reconciled exactly.
 
 ## Notes
 
 - `party` values are as reported by each source (not normalized between the
-  two files — 2022 uses MEDSL's `party_detailed`; 2020 uses MEDSL's `party`).
+  two files — 2022 uses MEDSL's `party_detailed`; 2020 uses the party labels
+  printed in the official KY SOS report, e.g. `REPUBLICAN`/`DEMOCRATIC`/
+  `LIBERTARIAN`/`POPULIST`/`WRITE-IN`).
 - Kentucky was never assigned Census-defined Voting Tabulation Districts
   (VTDs), which is part of why precinct-level 2020 sourcing for this state is
-  thin outside of Dataverse-hosted, non-GitHub datasets.
-- If true precinct-level 2020 figures are needed, MEDSL's Harvard Dataverse
-  page ("Precinct-Level Returns 2020") is the authoritative source but could
-  not be fetched from this environment — same limitation encountered with
-  the Mississippi Secretary of State site in this session.
+  thin outside of Dataverse-hosted, non-GitHub datasets — MEDSL's precinct-level
+  2020 file lives on Harvard Dataverse, unreachable from this environment, so
+  county-level (from the official KY SOS report) is the finest granularity
+  used here for 2020.
+- CD3 (Jefferson County only) and the Jefferson County portion of CD4 both
+  appear in the data — Jefferson County is split between congressional
+  districts 3 and 4, so it has separate rows for each.
